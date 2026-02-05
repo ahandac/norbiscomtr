@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - NorbisAI</title>
+    <meta name="description" content="NorbisAI ile iletişime geçin. WhatsApp, e-posta veya iletişim formu üzerinden bize ulaşabilirsiniz.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #7C3AED;
+            --primary-blue: #4F46E5;
+            --gradient-start: #6366F1;
+            --gradient-mid: #8B5CF6;
+            --gradient-end: #A855F7;
+            --dark-bg: #0F0A1F;
+            --dark-card: #1A1329;
+            --dark-surface: #241B35;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A5A0B7;
+            --text-muted: #6B6580;
+            --accent-green: #10B981;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(15, 10, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: white;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            padding: 8rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 80%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--gradient-mid);
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ============ CONTENT ============ */
+        .content-section {
+            padding: 0 2rem 6rem;
+        }
+
+        .content-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ============ BACK LINK ============ */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============ CONTACT CARDS ============ */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.1);
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        .contact-card.whatsapp-card:hover {
+            border-color: rgba(37, 211, 102, 0.3);
+            box-shadow: 0 20px 60px rgba(37, 211, 102, 0.1);
+        }
+
+        .contact-card.whatsapp-card::before {
+            background: linear-gradient(90deg, var(--whatsapp-green), var(--whatsapp-dark));
+        }
+
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .contact-card.whatsapp-card .contact-icon {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0.05));
+        }
+
+        .contact-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: var(--gradient-mid);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .contact-card a:hover {
+            color: var(--gradient-end);
+        }
+
+        .contact-card.whatsapp-card a {
+            color: var(--whatsapp-green);
+        }
+
+        .contact-card.whatsapp-card a:hover {
+            color: #34d399;
+        }
+
+        /* ============ FORM SECTION ============ */
+        .form-section {
+            margin-bottom: 4rem;
+        }
+
+        .form-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--dark-surface);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gradient-mid);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-success {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .form-success-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent-green), #34d399);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .form-success h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============ HOURS ============ */
+        .hours-section {
+            margin-bottom: 2rem;
+        }
+
+        .hours-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(139, 92, 246, 0.03));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .hours-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .hours-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .hours-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .hours-card .hours-highlight {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0.5rem;
+        }
+
+        .hours-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-column h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-column a.active {
+            color: var(--gradient-mid);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        .footer-legal a.active {
+            color: var(--gradient-mid);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .form-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">N</div>
+                <span class="logo-text">NorbisAI</span>
+            </a>
+            <div class="nav-cta">
+                <a href="/" class="btn btn-ghost">Ana Sayfa</a>
+                <a href="https://wa.me/905327816727?text=Merhaba,%20NorbisAI%20hakkında%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Hemen Başla
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">
+                <span>&#128172;</span>
+                İletişim
+            </div>
+            <h1 class="page-title">İletişim</h1>
+            <p class="page-subtitle">
+                Sorularınız, önerileriniz veya kurumsal başvurularınız için bize istediğiniz kanaldan ulaşabilirsiniz.
+            </p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="content-section">
+        <div class="content-container">
+            <a href="/" class="back-link">&larr; Ana Sayfaya Dön</a>
+
+            <!-- Contact Cards -->
+            <div class="contact-cards">
+                <div class="contact-card whatsapp-card">
+                    <div class="contact-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p><a href="https://wa.me/905327816727" target="_blank" rel="noopener noreferrer">+90 532 781 6727</a></p>
+                    <p>Hızlı yanıt için WhatsApp'tan yazın</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">&#9993;</div>
+                    <h3>E-posta</h3>
+                    <p><a href="mailto:info@norbis.com.tr">info@norbis.com.tr</a></p>
+                    <p>Kurumsal başvurular ve detaylı sorular</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">&#128205;</div>
+                    <h3>Adres</h3>
+                    <p>Maslak Mah. Büyükdere Cad.<br>No:123 Sarıyer/İstanbul</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="form-section">
+                <h2 class="form-section-title">Bize Yazın</h2>
+                <p class="form-section-subtitle">Formu doldurun, en kısa sürede size dönüş yapalım</p>
+
+                <div class="form-card">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label class="form-label">Adınız Soyadınız *</label>
+                            <input type="text" name="name" class="form-input" placeholder="Adınızı girin" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">E-posta Adresiniz *</label>
+                            <input type="email" name="email" class="form-input" placeholder="ornek@sirket.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Şirket Adı</label>
+                            <input type="text" name="company" class="form-input" placeholder="Şirketinizin adı">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Mesajınız *</label>
+                            <textarea name="message" class="form-textarea" placeholder="Size nasıl yardımcı olabiliriz?" required></textarea>
+                        </div>
+                        <input type="hidden" name="access_key" value="4c5dee11-f247-4214-ba40-f1266b0cdc71">
+                        <input type="hidden" name="subject" value="NorbisAI - Yeni İletişim Formu">
+                        <input type="hidden" name="from_name" value="NorbisAI Website">
+                        <button type="submit" class="form-submit">
+                            <span>Gönder</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <div id="formSuccess" class="form-success hidden">
+                        <div class="form-success-icon">&#10003;</div>
+                        <h3>Mesajınız Gönderildi!</h3>
+                        <p>En kısa sürede size dönüş yapacağız.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="hours-section">
+                <div class="hours-card">
+                    <div class="hours-icon">&#128344;</div>
+                    <h3>Çalışma Saatleri</h3>
+                    <div class="hours-highlight">Pazartesi - Cuma: 09:00 - 18:00</div>
+                    <p class="hours-note">WhatsApp AI asistanımız 7/24 hizmet vermektedir. Mesai saatleri dışında canlı destek için bir sonraki iş günü dönüş yapılır.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <div class="logo-icon">N</div>
+                        <span class="logo-text">NorbisAI</span>
+                    </a>
+                    <p>WhatsApp üzerinden kurumsal çalışan ödül sistemi. 150+ markada geçerli kuponlar, 7/24 AI asistan desteği.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">&#120143;</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="/#how">Nasıl Çalışır</a></li>
+                        <li><a href="/#brands">Markalar</a></li>
+                        <li><a href="/fiyatlandirma">Fiyatlandırma</a></li>
+                        <li><a href="/panel">Kurumsal Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="/hakkimizda">Hakkımızda</a></li>
+                        <li><a href="/kariyer">Kariyer</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/iletisim" class="active">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul>
+                        <li><a href="/yardim">Yardım Merkezi</a></li>
+                        <li><a href="/sss">SSS</a></li>
+                        <li><a href="https://wa.me/905327816727" target="_blank" rel="noopener noreferrer">WhatsApp Destek</a></li>
+                        <li><a href="/api-docs">API Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Norbis Group A.Ş. Tüm hakları saklıdır.</p>
+                <div class="footer-legal">
+                    <a href="/gizlilik">Gizlilik Politikası</a>
+                    <a href="/kullanim-kosullari">Kullanım Koşulları</a>
+                    <a href="/kvkk">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission with Web3Forms
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = form.querySelector('.form-submit');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Gönderiliyor...</span>';
+
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    form.classList.add('hidden');
+                    document.getElementById('formSuccess').classList.remove('hidden');
+
+                    setTimeout(() => {
+                        form.reset();
+                        form.classList.remove('hidden');
+                        document.getElementById('formSuccess').classList.add('hidden');
+                    }, 5000);
+                } else {
+                    alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            } catch (error) {
+                alert('Bağlantı hatası. Lütfen tekrar deneyin.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    </script>
+</body>
+</html>

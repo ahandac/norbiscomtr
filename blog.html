@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - NorbisAI</title>
+    <meta name="description" content="NorbisAI Blog - Çalışan memnuniyeti, kurumsal ödül sistemleri ve WhatsApp Business hakkında güncel yazılar.">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #7C3AED;
+            --primary-blue: #4F46E5;
+            --gradient-start: #6366F1;
+            --gradient-mid: #8B5CF6;
+            --gradient-end: #A855F7;
+            --dark-bg: #0F0A1F;
+            --dark-card: #1A1329;
+            --dark-surface: #241B35;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A5A0B7;
+            --text-muted: #6B6580;
+            --accent-green: #10B981;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(15, 10, 31, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: white;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ============ PAGE HEADER ============ */
+        .page-header {
+            padding: 8rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 80%;
+            height: 120%;
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--gradient-mid);
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ============ BLOG GRID ============ */
+        .blog-section {
+            padding: 0 2rem 6rem;
+        }
+
+        .blog-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .blog-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .blog-card-category {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .category-ik {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818CF8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .category-teknoloji {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .category-sektor {
+            background: rgba(245, 158, 11, 0.15);
+            color: #FBBF24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .category-finans {
+            background: rgba(239, 68, 68, 0.15);
+            color: #F87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .category-urun {
+            background: rgba(139, 92, 246, 0.15);
+            color: #A78BFA;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .category-arastirma {
+            background: rgba(6, 182, 212, 0.15);
+            color: #22D3EE;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .blog-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-card-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .blog-card-date {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .blog-card-read {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .blog-card-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--gradient-mid);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--dark-card);
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            margin: 1rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-column h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(139, 92, 246, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        .footer-legal a.active {
+            color: var(--gradient-mid);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-card {
+                padding: 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">N</div>
+                <span class="logo-text">NorbisAI</span>
+            </a>
+            <div class="nav-cta">
+                <a href="/" class="btn btn-ghost">Ana Sayfa</a>
+                <a href="https://wa.me/905327816727?text=Merhaba,%20NorbisAI%20hakkında%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Hemen Başla
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">
+                <span>&#128221;</span>
+                Blog
+            </div>
+            <h1 class="page-title">Blog</h1>
+            <p class="page-subtitle">
+                Çalışan memnuniyeti, kurumsal ödül sistemleri ve WhatsApp Business hakkında güncel yazılar
+            </p>
+        </div>
+    </section>
+
+    <!-- Blog Grid -->
+    <section class="blog-section">
+        <div class="blog-container">
+            <div class="blog-grid">
+
+                <!-- Blog Post 1 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-ik">İnsan Kaynakları</div>
+                    <h2 class="blog-card-title">Çalışan Bağlılığını Artırmanın 5 Kanıtlanmış Yolu</h2>
+                    <p class="blog-card-excerpt">Araştırmalar, çalışan bağlılığının düşük olduğu şirketlerde verimlilik kaybının %34'e ulaştığını gösteriyor. İşte bağlılığı artırmanın kanıtlanmış yöntemleri.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">28 Ocak 2026</span>
+                        <span class="blog-card-read">6 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+                <!-- Blog Post 2 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-teknoloji">Teknoloji</div>
+                    <h2 class="blog-card-title">WhatsApp Business API ile Kurumsal İletişim</h2>
+                    <p class="blog-card-excerpt">WhatsApp Business API, şirketlerin çalışanlarıyla doğrudan ve güvenli iletişim kurmasını sağlıyor. Entegrasyon sürecinde dikkat edilmesi gerekenler.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">22 Ocak 2026</span>
+                        <span class="blog-card-read">8 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+                <!-- Blog Post 3 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-sektor">Sektör</div>
+                    <h2 class="blog-card-title">2026'da Çalışan Yan Haklarında Trendler</h2>
+                    <p class="blog-card-excerpt">Esnek yan haklar, dijital kuponlar ve kişiselleştirilmiş ödül sistemleri 2026'nın en öne çıkan İK trendleri arasında yerini alıyor.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">15 Ocak 2026</span>
+                        <span class="blog-card-read">5 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+                <!-- Blog Post 4 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-finans">Finans</div>
+                    <h2 class="blog-card-title">Kupon ve Çek Sistemi: Vergi Avantajları Rehberi</h2>
+                    <p class="blog-card-excerpt">Gelir Vergisi Kanunu kapsamında çalışanlara sağlanan kupon ve çeklerin vergi avantajları hakkında kapsamlı rehber. %45'e varan tasarruf fırsatı.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">8 Ocak 2026</span>
+                        <span class="blog-card-read">10 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+                <!-- Blog Post 5 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-urun">Ürün</div>
+                    <h2 class="blog-card-title">NorbisAI ile Tanışın: Yapay Zeka Destekli Ödül Sistemi</h2>
+                    <p class="blog-card-excerpt">NorbisAI'ın yapay zeka destekli WhatsApp asistanı, çalışanların kupon seçiminden kullanımına kadar tüm süreçte yanlarında. İşte detaylar.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">2 Ocak 2026</span>
+                        <span class="blog-card-read">7 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+                <!-- Blog Post 6 -->
+                <a href="#" class="blog-card">
+                    <div class="blog-card-category category-arastirma">Araştırma</div>
+                    <h2 class="blog-card-title">Çalışan Memnuniyetinde WhatsApp'ın Rolü</h2>
+                    <p class="blog-card-excerpt">500+ çalışanla yapılan araştırmamız, WhatsApp üzerinden sunulan yan hakların memnuniyet oranını %72 artırdığını ortaya koydu.</p>
+                    <div class="blog-card-meta">
+                        <span class="blog-card-date">20 Aralık 2025</span>
+                        <span class="blog-card-read">9 dk okuma</span>
+                    </div>
+                    <div class="blog-card-arrow">Devamını oku &rarr;</div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <div class="logo-icon">N</div>
+                        <span class="logo-text">NorbisAI</span>
+                    </a>
+                    <p>WhatsApp üzerinden kurumsal çalışan ödül sistemi. 150+ markada geçerli kuponlar, 7/24 AI asistan desteği.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">in</a>
+                        <a href="#" class="social-link">&#120143;</a>
+                        <a href="#" class="social-link">ig</a>
+                        <a href="#" class="social-link">yt</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="/#how">Nasıl Çalışır</a></li>
+                        <li><a href="/#brands">Markalar</a></li>
+                        <li><a href="/fiyatlandirma">Fiyatlandırma</a></li>
+                        <li><a href="/panel">Kurumsal Panel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Şirket</h4>
+                    <ul>
+                        <li><a href="/hakkimizda">Hakkımızda</a></li>
+                        <li><a href="/kariyer">Kariyer</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/iletisim">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Destek</h4>
+                    <ul>
+                        <li><a href="/yardim">Yardım Merkezi</a></li>
+                        <li><a href="/sss">SSS</a></li>
+                        <li><a href="https://wa.me/905327816727" target="_blank" rel="noopener noreferrer">WhatsApp Destek</a></li>
+                        <li><a href="/api-docs">API Docs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Norbis Group A.Ş. Tüm hakları saklıdır.</p>
+                <div class="footer-legal">
+                    <a href="/gizlilik">Gizlilik Politikası</a>
+                    <a href="/kullanim-kosullari">Kullanım Koşulları</a>
+                    <a href="/kvkk">KVKK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

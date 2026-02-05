@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KVKK Aydınlatma Metni - NorbisAI</title>
-    <meta name="description" content="NorbisAI KVKK Aydınlatma Metni - 6698 Sayılı Kişisel Verilerin Korunması Kanunu kapsamında kişisel verilerin işlenmesine ilişkin aydınlatma metni.">
+    <title>API Dokümantasyonu - NorbisAI</title>
+    <meta name="description" content="NorbisAI REST API Dokümantasyonu - Kurumsal ödül sisteminizi kendi platformunuza entegre edin. Endpoint'ler, kimlik doğrulama ve SDK desteği.">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -202,12 +202,6 @@
             margin: 0 auto;
         }
 
-        .page-meta {
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
         /* ============ CONTENT ============ */
         .content-section {
             padding: 0 2rem 6rem;
@@ -312,6 +306,109 @@
             margin-bottom: 0;
         }
 
+        .divider {
+            border: none;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.15);
+            margin: 2.5rem 0;
+        }
+
+        /* ============ CODE BLOCKS ============ */
+        .code-block {
+            background: #0D0818;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', Consolas, monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            display: block;
+            white-space: pre;
+        }
+
+        .code-block .keyword {
+            color: var(--gradient-mid);
+        }
+
+        .code-block .string {
+            color: var(--accent-green);
+        }
+
+        .code-block .comment {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        code.inline {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 6px;
+            padding: 0.15rem 0.45rem;
+            font-size: 0.85rem;
+            color: var(--gradient-mid);
+        }
+
+        /* ============ ENDPOINT LIST ============ */
+        .endpoint {
+            background: #0D0818;
+            border: 1px solid rgba(139, 92, 246, 0.12);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .endpoint:last-child {
+            margin-bottom: 0;
+        }
+
+        .method {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.3rem 0.65rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        .method.get {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .method.post {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--gradient-start);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+        }
+
+        .endpoint-path {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        .endpoint-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+
+        /* ============ DATA TABLE ============ */
         .data-table {
             width: 100%;
             border-collapse: separate;
@@ -348,11 +445,82 @@
             background: rgba(139, 92, 246, 0.04);
         }
 
-        .divider {
-            border: none;
-            height: 1px;
+        .data-table code {
+            font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+            font-size: 0.85rem;
+            color: var(--gradient-mid);
+        }
+
+        /* ============ SDK BADGES ============ */
+        .sdk-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .sdk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--dark-surface);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .sdk-badge .sdk-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .sdk-status.available {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+        }
+
+        .sdk-status.coming-soon {
             background: rgba(139, 92, 246, 0.15);
-            margin: 2.5rem 0;
+            color: var(--gradient-mid);
+        }
+
+        /* ============ CTA BOX ============ */
+        .cta-box {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .cta-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .cta-box a.cta-link {
+            color: var(--gradient-mid);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .cta-box a.cta-link:hover {
+            color: var(--gradient-end);
+            text-decoration: underline;
         }
 
         /* ============ BACK LINK ============ */
@@ -505,9 +673,23 @@
                 font-size: 1.25rem;
             }
 
+            .endpoint {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .endpoint-desc {
+                margin-left: 0;
+            }
+
             .data-table {
                 display: block;
                 overflow-x: auto;
+            }
+
+            .sdk-list {
+                flex-direction: column;
             }
 
             .footer-grid {
@@ -550,14 +732,13 @@
     <section class="page-header">
         <div class="page-header-content">
             <div class="page-badge">
-                <span>&#128274;</span>
-                6698 Sayılı Kanun
+                <span>&#128268;</span>
+                API v1.0
             </div>
-            <h1 class="page-title">KVKK Aydınlatma Metni</h1>
+            <h1 class="page-title">API Dokümantasyonu</h1>
             <p class="page-subtitle">
-                Kişisel Verilerin Korunması Kanunu kapsamında, kişisel verilerinizin işlenmesine ilişkin sizi bilgilendirmek amacıyla hazırlanmıştır.
+                NorbisAI REST API ile kurumsal ödül sisteminizi kendi platformunuza entegre edin.
             </p>
-            <p class="page-meta">Son güncelleme: 5 Şubat 2026</p>
         </div>
     </section>
 
@@ -568,198 +749,250 @@
 
             <div class="content-card">
 
-                <h2><span class="section-num">1</span> Veri Sorumlusu</h2>
+                <h2><span class="section-num">1</span> Kimlik Doğrulama</h2>
                 <p>
-                    6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verileriniz; veri sorumlusu olarak <strong>Norbis Group A.Ş.</strong> ("Şirket") tarafından aşağıda açıklanan kapsamda işlenebilecektir.
+                    NorbisAI API, <strong>Bearer Token</strong> tabanlı kimlik doğrulama kullanır. API anahtarınızı kurumsal panelinizin <strong>Ayarlar &gt; API Erişimi</strong> bölümünden oluşturabilirsiniz.
                 </p>
+                <p>
+                    Tüm isteklerde <code class="inline">Authorization</code> header'ında API anahtarınızı göndermeniz gerekmektedir:
+                </p>
+                <div class="code-block">
+                    <code><span class="keyword">Authorization:</span> <span class="string">Bearer YOUR_API_KEY</span>
+<span class="keyword">Content-Type:</span> <span class="string">application/json</span></code>
+                </div>
                 <div class="info-box">
-                    <p><strong>Veri Sorumlusu:</strong> Norbis Group A.Ş.</p>
-                    <p><strong>Web Sitesi:</strong> <a href="https://norbis.com.tr">norbis.com.tr</a></p>
-                    <p><strong>E-posta:</strong> <a href="mailto:kvkk@norbis.com.tr">kvkk@norbis.com.tr</a></p>
+                    <p><strong>Dikkat:</strong> API anahtarınızı güvenli bir şekilde saklayın. Anahtarınızı kaynak kodunuzda veya herkese açık alanlarda paylaşmayın. Anahtarınız ele geçirildiğinde kurumsal panelden iptal edip yenisini oluşturabilirsiniz.</p>
                 </div>
 
                 <hr class="divider">
 
-                <h2><span class="section-num">2</span> İşlenen Kişisel Veriler</h2>
+                <h2><span class="section-num">2</span> Base URL</h2>
                 <p>
-                    Şirketimiz tarafından aşağıdaki kişisel veri kategorileri işlenmektedir:
+                    Tüm API istekleri aşağıdaki temel URL üzerinden yapılır:
+                </p>
+                <div class="code-block">
+                    <code><span class="string">https://api.norbis.com.tr/v1</span></code>
+                </div>
+                <p>
+                    API yalnızca <strong>HTTPS</strong> üzerinden erişilebilir. HTTP istekleri otomatik olarak reddedilir.
+                </p>
+
+                <hr class="divider">
+
+                <h2><span class="section-num">3</span> Endpoint'ler</h2>
+                <p>
+                    Mevcut API endpoint'leri aşağıda listelenmiştir:
+                </p>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/employees</span>
+                    <span class="endpoint-desc">Çalışan listesi</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/coupons/generate</span>
+                    <span class="endpoint-desc">Kupon oluştur</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/coupons/{id}</span>
+                    <span class="endpoint-desc">Kupon detayı</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/balance</span>
+                    <span class="endpoint-desc">Bakiye sorgula</span>
+                </div>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/reports/usage</span>
+                    <span class="endpoint-desc">Kullanım raporu</span>
+                </div>
+
+                <h3>Örnek İstek</h3>
+                <div class="code-block">
+                    <code><span class="comment"># Çalışan listesini getir</span>
+<span class="keyword">curl</span> -X GET <span class="string">https://api.norbis.com.tr/v1/employees</span> \
+  -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="string">"Content-Type: application/json"</span></code>
+                </div>
+
+                <h3>Örnek Yanıt</h3>
+                <div class="code-block">
+                    <code>{
+  <span class="keyword">"success"</span>: <span class="string">true</span>,
+  <span class="keyword">"data"</span>: [
+    {
+      <span class="keyword">"id"</span>: <span class="string">"emp_abc123"</span>,
+      <span class="keyword">"name"</span>: <span class="string">"Ahmet Yılmaz"</span>,
+      <span class="keyword">"phone"</span>: <span class="string">"+905551234567"</span>,
+      <span class="keyword">"balance"</span>: <span class="string">500.00</span>,
+      <span class="keyword">"status"</span>: <span class="string">"active"</span>
+    }
+  ],
+  <span class="keyword">"pagination"</span>: {
+    <span class="keyword">"page"</span>: <span class="string">1</span>,
+    <span class="keyword">"per_page"</span>: <span class="string">20</span>,
+    <span class="keyword">"total"</span>: <span class="string">156</span>
+  }
+}</code>
+                </div>
+
+                <hr class="divider">
+
+                <h2><span class="section-num">4</span> Rate Limits</h2>
+                <p>
+                    API istekleri plan tipine göre sınırlandırılmıştır:
                 </p>
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Veri Kategorisi</th>
+                            <th>Plan</th>
+                            <th>Rate Limit</th>
+                            <th>Günlük Limit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Profesyonel</strong></td>
+                            <td>100 istek/dakika</td>
+                            <td>10.000 istek/gün</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kurumsal</strong></td>
+                            <td>1.000 istek/dakika</td>
+                            <td>100.000 istek/gün</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Rate limit aşıldığında <code class="inline">429 Too Many Requests</code> yanıtı döner. Yanıt header'larında kalan istek sayısı ve sıfırlanma zamanı bilgisi bulunur:
+                </p>
+                <div class="code-block">
+                    <code><span class="keyword">X-RateLimit-Limit:</span> <span class="string">100</span>
+<span class="keyword">X-RateLimit-Remaining:</span> <span class="string">95</span>
+<span class="keyword">X-RateLimit-Reset:</span> <span class="string">1706140800</span></code>
+                </div>
+
+                <hr class="divider">
+
+                <h2><span class="section-num">5</span> Hata Kodları</h2>
+                <p>
+                    API, standart HTTP durum kodları ile hata yanıtları döner:
+                </p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Kod</th>
+                            <th>Durum</th>
                             <th>Açıklama</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Kimlik Bilgileri</strong></td>
-                            <td>Ad, soyad, T.C. kimlik numarası</td>
+                            <td><code>400</code></td>
+                            <td>Bad Request</td>
+                            <td>Geçersiz istek parametreleri</td>
                         </tr>
                         <tr>
-                            <td><strong>İletişim Bilgileri</strong></td>
-                            <td>Telefon numarası, e-posta adresi, şirket adı</td>
+                            <td><code>401</code></td>
+                            <td>Unauthorized</td>
+                            <td>Geçersiz veya eksik API anahtarı</td>
                         </tr>
                         <tr>
-                            <td><strong>İşlem Güvenliği</strong></td>
-                            <td>IP adresi, tarayıcı bilgileri, çerez verileri, oturum bilgileri</td>
+                            <td><code>403</code></td>
+                            <td>Forbidden</td>
+                            <td>Bu işlem için yetkiniz yok</td>
                         </tr>
                         <tr>
-                            <td><strong>Müşteri İşlem Bilgileri</strong></td>
-                            <td>Kupon kullanım geçmişi, bakiye bilgileri, marka tercihleri</td>
+                            <td><code>404</code></td>
+                            <td>Not Found</td>
+                            <td>İstenen kaynak bulunamadı</td>
                         </tr>
                         <tr>
-                            <td><strong>Pazarlama Bilgileri</strong></td>
-                            <td>Kullanım alışkanlıkları, tercih ve beğeniler</td>
+                            <td><code>429</code></td>
+                            <td>Too Many Requests</td>
+                            <td>Rate limit aşıldı</td>
+                        </tr>
+                        <tr>
+                            <td><code>500</code></td>
+                            <td>Internal Server Error</td>
+                            <td>Sunucu hatası, lütfen tekrar deneyin</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <hr class="divider">
-
-                <h2><span class="section-num">3</span> Kişisel Verilerin İşlenme Amaçları</h2>
-                <p>
-                    Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:
-                </p>
-                <ul>
-                    <li>WhatsApp üzerinden kurumsal ödül ve kupon hizmetlerinin sunulması</li>
-                    <li>Kullanıcı hesaplarının oluşturulması ve yönetilmesi</li>
-                    <li>Kupon ve çek işlemlerinin gerçekleştirilmesi</li>
-                    <li>Müşteri ilişkileri yönetimi ve destek hizmetlerinin sağlanması</li>
-                    <li>Kurumsal müşteriler ile sözleşme süreçlerinin yürütülmesi</li>
-                    <li>Yasal yükümlülüklerin yerine getirilmesi (fatura, vergi vb.)</li>
-                    <li>Hizmet kalitesinin artırılması ve istatistiksel analizler yapılması</li>
-                    <li>Bilgi güvenliği süreçlerinin yürütülmesi</li>
-                    <li>İletişim faaliyetlerinin yürütülmesi</li>
-                    <li>Şirket faaliyetlerinin ilgili mevzuata uygun olarak yürütülmesi</li>
-                </ul>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">4</span> Kişisel Verilerin İşlenme Hukuki Sebepleri</h2>
-                <p>
-                    Kişisel verileriniz, KVKK'nın 5. ve 6. maddelerinde belirtilen aşağıdaki hukuki sebeplere dayanılarak işlenmektedir:
-                </p>
-                <ul>
-                    <li><strong>Açık rıza:</strong> Pazarlama ve iletişim faaliyetleri için</li>
-                    <li><strong>Sözleşmenin ifası:</strong> Hizmet sunumu ve kurumsal sözleşme süreçleri için</li>
-                    <li><strong>Kanuni yükümlülük:</strong> Vergi, muhasebe ve yasal raporlama yükümlülükleri için</li>
-                    <li><strong>Meşru menfaat:</strong> Hizmet kalitesinin artırılması, güvenlik ve dolandırıcılık önleme için</li>
-                    <li><strong>Hakkın tesisi, kullanılması veya korunması:</strong> Hukuki süreçlerin yürütülmesi için</li>
-                </ul>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">5</span> Kişisel Verilerin Aktarılması</h2>
-                <p>
-                    Kişisel verileriniz, yukarıda belirtilen amaçlar doğrultusunda ve KVKK'nın 8. ve 9. maddelerine uygun olarak aşağıdaki taraflara aktarılabilmektedir:
-                </p>
-                <ul>
-                    <li><strong>İş ortakları ve tedarikçiler:</strong> Kupon ve çek hizmetlerinin sağlanması amacıyla anlaşmalı markalar ve tedarikçi firmalar</li>
-                    <li><strong>Hizmet sağlayıcılar:</strong> WhatsApp Business API, bulut altyapı, ödeme sistemleri ve SMS hizmet sağlayıcıları</li>
-                    <li><strong>Kurumsal müşteriler:</strong> Çalışan ödül programını kullanan şirketlere, yalnızca toplu raporlama kapsamında</li>
-                    <li><strong>Kamu kurum ve kuruluşları:</strong> Yasal yükümlülükler kapsamında yetkili kamu kurumlarına</li>
-                    <li><strong>Hukuk müşavirleri ve denetçiler:</strong> Hukuki süreçlerin yürütülmesi ve denetim faaliyetleri kapsamında</li>
-                </ul>
-                <p>
-                    Kişisel verileriniz yurt dışına aktarılması durumunda, KVKK'nın 9. maddesi kapsamında gerekli güvenceler sağlanmaktadır.
-                </p>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">6</span> Kişisel Veri Toplamanın Yöntemi</h2>
-                <p>
-                    Kişisel verileriniz aşağıdaki yöntemlerle toplanmaktadır:
-                </p>
-                <ul>
-                    <li><strong>WhatsApp:</strong> NorbisAI chatbot üzerinden yapılan mesajlaşmalar aracılığıyla</li>
-                    <li><strong>Web sitesi:</strong> norbis.com.tr üzerindeki iletişim formları aracılığıyla</li>
-                    <li><strong>Kurumsal panel:</strong> Şirket yöneticilerinin kullandığı yönetim paneli üzerinden</li>
-                    <li><strong>E-posta ve telefon:</strong> Doğrudan iletişim kanalları aracılığıyla</li>
-                    <li><strong>Çerezler:</strong> Web sitemizi ziyaret ettiğinizde otomatik olarak toplanan teknik veriler</li>
-                </ul>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">7</span> Kişisel Verilerin Saklanma Süresi</h2>
-                <p>
-                    Kişisel verileriniz, işleme amacının gerektirdiği süre boyunca ve ilgili mevzuatta öngörülen zamanaşımı süreleri kadar saklanmaktadır. Saklama süresinin sona ermesinin ardından kişisel verileriniz silinir, yok edilir veya anonim hale getirilir.
-                </p>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Veri Türü</th>
-                            <th>Saklama Süresi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sözleşme verileri</td>
-                            <td>Sözleşme sona erdikten sonra 10 yıl</td>
-                        </tr>
-                        <tr>
-                            <td>Fatura ve muhasebe verileri</td>
-                            <td>10 yıl</td>
-                        </tr>
-                        <tr>
-                            <td>İletişim formu verileri</td>
-                            <td>2 yıl</td>
-                        </tr>
-                        <tr>
-                            <td>Çerez verileri</td>
-                            <td>En fazla 2 yıl</td>
-                        </tr>
-                        <tr>
-                            <td>İşlem geçmişi</td>
-                            <td>Üyelik sona erdikten sonra 3 yıl</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">8</span> Veri Sahibinin Hakları</h2>
-                <p>
-                    KVKK'nın 11. maddesi uyarınca, kişisel veri sahipleri olarak aşağıdaki haklara sahipsiniz:
-                </p>
-                <ol>
-                    <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
-                    <li>Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme</li>
-                    <li>Kişisel verilerinizin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme</li>
-                    <li>Yurt içinde veya yurt dışında kişisel verilerinizin aktarıldığı üçüncü kişileri bilme</li>
-                    <li>Kişisel verilerinizin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme</li>
-                    <li>KVKK'nın 7. maddesinde öngörülen şartlar çerçevesinde kişisel verilerinizin silinmesini veya yok edilmesini isteme</li>
-                    <li>Düzeltme ve silme işlemlerinin, kişisel verilerinizin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
-                    <li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme</li>
-                    <li>Kişisel verilerinizin kanuna aykırı olarak işlenmesi sebebiyle zarara uğramanız halinde zararın giderilmesini talep etme</li>
-                </ol>
-
-                <hr class="divider">
-
-                <h2><span class="section-num">9</span> Başvuru Yöntemi</h2>
-                <p>
-                    Yukarıda belirtilen haklarınızı kullanmak için aşağıdaki yöntemlerden birini tercih edebilirsiniz:
-                </p>
-                <div class="info-box">
-                    <p><strong>E-posta:</strong> <a href="mailto:kvkk@norbis.com.tr">kvkk@norbis.com.tr</a> adresine kimlik teyidinizi içeren imzalı dilekçe ile</p>
-                    <p><strong>Posta:</strong> Şirket adresine noter aracılığıyla veya iadeli taahhütlü mektupla</p>
-                    <p><strong>KEP:</strong> Kayıtlı elektronik posta adresi üzerinden</p>
+                <h3>Hata Yanıt Formatı</h3>
+                <div class="code-block">
+                    <code>{
+  <span class="keyword">"success"</span>: <span class="string">false</span>,
+  <span class="keyword">"error"</span>: {
+    <span class="keyword">"code"</span>: <span class="string">"INVALID_API_KEY"</span>,
+    <span class="keyword">"message"</span>: <span class="string">"Geçersiz API anahtarı."</span>,
+    <span class="keyword">"status"</span>: <span class="string">401</span>
+  }
+}</code>
                 </div>
-                <p>
-                    Başvurularınız, talebinizin niteliğine göre en kısa sürede ve en geç <strong>30 (otuz) gün</strong> içinde ücretsiz olarak sonuçlandırılacaktır. Ancak, işlemin ayrıca bir maliyet gerektirmesi halinde, Kişisel Verileri Koruma Kurulu tarafından belirlenen tarifedeki ücret alınabilir.
-                </p>
-                <p>
-                    Başvuruda; adınız, soyadınız, başvuru yazılı ise imzanız, T.C. kimlik numaranız, tebligata esas yerleşim yeri veya iş yeri adresiniz, varsa bildirime esas elektronik posta adresiniz, telefon numaranız ve talep konunuz bulunmalıdır.
-                </p>
 
                 <hr class="divider">
 
-                <h2><span class="section-num">10</span> Değişiklikler</h2>
+                <h2><span class="section-num">6</span> SDK'lar</h2>
                 <p>
-                    Şirketimiz, işbu aydınlatma metninde yasal düzenlemeler ve şirket politikalarına uyum sağlamak amacıyla değişiklik yapma hakkını saklı tutar. Güncel metin her zaman <a href="/kvkk">norbis.com.tr/kvkk</a> adresinde yayınlanacaktır.
+                    Entegrasyonu kolaylaştırmak için resmi SDK'larımızı kullanabilirsiniz:
                 </p>
+                <div class="sdk-list">
+                    <div class="sdk-badge">
+                        Node.js
+                        <span class="sdk-status available">Mevcut</span>
+                    </div>
+                    <div class="sdk-badge">
+                        Python
+                        <span class="sdk-status available">Mevcut</span>
+                    </div>
+                    <div class="sdk-badge">
+                        PHP
+                        <span class="sdk-status coming-soon">Yakında</span>
+                    </div>
+                </div>
+
+                <h3>Node.js Kurulum</h3>
+                <div class="code-block">
+                    <code><span class="keyword">npm install</span> <span class="string">@norbisai/sdk</span></code>
+                </div>
+
+                <h3>Python Kurulum</h3>
+                <div class="code-block">
+                    <code><span class="keyword">pip install</span> <span class="string">norbisai</span></code>
+                </div>
+
+                <h3>Hızlı Başlangıç (Node.js)</h3>
+                <div class="code-block">
+                    <code><span class="keyword">const</span> { NorbisAI } = <span class="keyword">require</span>(<span class="string">'@norbisai/sdk'</span>);
+
+<span class="keyword">const</span> client = <span class="keyword">new</span> NorbisAI({
+  apiKey: <span class="string">'YOUR_API_KEY'</span>
+});
+
+<span class="comment">// Çalışan listesini getir</span>
+<span class="keyword">const</span> employees = <span class="keyword">await</span> client.employees.list();
+
+<span class="comment">// Kupon oluştur</span>
+<span class="keyword">const</span> coupon = <span class="keyword">await</span> client.coupons.generate({
+  employeeId: <span class="string">'emp_abc123'</span>,
+  brand: <span class="string">'migros'</span>,
+  amount: <span class="string">100</span>
+});</code>
+                </div>
 
             </div>
+
+            <!-- CTA Box -->
+            <div class="cta-box">
+                <p><strong>API erişimi Profesyonel ve Kurumsal planlarda mevcuttur.</strong></p>
+                <p>Planınızı yükselterek API erişimi kazanın ve sisteminizi entegre edin. <a href="/fiyatlandirma" class="cta-link">Fiyatlandırma sayfasını inceleyin &rarr;</a></p>
+            </div>
+
         </div>
     </section>
 
@@ -813,7 +1046,7 @@
                 <div class="footer-legal">
                     <a href="/gizlilik">Gizlilik Politikası</a>
                     <a href="/kullanim-kosullari">Kullanım Koşulları</a>
-                    <a href="/kvkk" class="active">KVKK</a>
+                    <a href="/kvkk">KVKK</a>
                 </div>
             </div>
         </div>
